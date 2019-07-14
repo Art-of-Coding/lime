@@ -15,7 +15,7 @@ npm i @art-of-coding/lime
 
 ## Example
 
-Also see [http-example.ts](src/http-example.ts) for a more complete, practical
+Also see [http-example.ts](src/examples/http-example.ts) for a more complete, practical
 example.
 
 ```ts
