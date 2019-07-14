@@ -16,7 +16,7 @@ npm i @art-of-coding/lime
 ## Example
 
 ```ts
-import Lime from '@ArtofCoding/lime'
+import Lime from '@art-of-coding/lime'
 
 // Create a new Lime app
 const app = new Lime()
