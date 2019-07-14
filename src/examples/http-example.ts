@@ -3,7 +3,7 @@
 import { Lime, Context } from '../'
 import { createServer, IncomingMessage, ServerResponse } from 'http'
 
-interface MyContext extends Context {
+interface HttpContext extends Context {
   req: IncomingMessage,
   res: ServerResponse,
   status?: number,
@@ -11,9 +11,9 @@ interface MyContext extends Context {
   json?: any
 }
 
-const app = new Lime<MyContext>() // entry app
-const app2 = new Lime<MyContext>() // index (/) app
-const app3 = new Lime<MyContext>() // about (/about) app
+const app = new Lime<HttpContext>() // entry app
+const app2 = new Lime<HttpContext>() // index (/) app
+const app3 = new Lime<HttpContext>() // about (/about) app
 
 app.use(async (ctx, next: Function) => {
   if (ctx.req.url === '/') {
@@ -31,7 +31,6 @@ app.use(async (ctx, next: Function) => {
   }
 })
 
-
 app2.use(async ctx => {
   ctx.body = 'welcome to /'
 })
@@ -41,7 +40,7 @@ app3.use(async ctx => {
 })
 
 const server = createServer((req, res) => {
-  const ctx: MyContext = { req, res, status: 404 }
+  const ctx: HttpContext = { req, res, status: 404 }
 
   app.run(ctx).then(() => {
     let contentType = 'text/plain'
@@ -54,7 +53,7 @@ const server = createServer((req, res) => {
     }
 
     if (ctx.body) {
-      ctx.status = 200
+      ctx.status = ctx.status !== 404 ? ctx.status : 200
       ctx.res.writeHead(ctx.status, {
         'Content-Type': contentType,
         'Content-Length': Buffer.byteLength(ctx.body)
