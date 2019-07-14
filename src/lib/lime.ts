@@ -11,14 +11,20 @@ export interface MiddlewareFunction<C = Context> {
 }
 
 export class Lime<C = Context> {
+  private _composed: (ctx: Context) => Promise<void>
   private _mw: MiddlewareFunction<C>[] = []
 
   public use (fn: MiddlewareFunction<C>) {
     this._mw.push(fn)
+    this._composed = null
   }
 
   public compose () {
-    return compose(this._mw)
+    if (!this._composed) {
+      this._composed = compose(this._mw)
+    }
+
+    return this._composed
   }
 
   public async run (ctx: C) {
