@@ -15,6 +15,9 @@ npm i @art-of-coding/lime
 
 ## Example
 
+Also see [http-example.ts](src/http-example.ts) for a more complete, practical
+example.
+
 ```ts
 import Lime from '@art-of-coding/lime'
 
