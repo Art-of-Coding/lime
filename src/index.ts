@@ -1,4 +1,4 @@
 'use strict'
 
-export { Lime, Lime as default, Context, MiddlewareFunction } from './lib/lime'
-export { compose } from './lib/compose'
+export { Lime as default, Lime } from './lib/lime'
+export { compose, Context, MiddlewareFunction } from '@art-of-coding/lime-compose'
