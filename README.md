@@ -92,7 +92,7 @@ composed(ctx).then(() => {
 #### app.run()
 
 ```ts
-app.run(ctx: C): Promise<void>
+app.run(ctx: C, next?: () => Promise<void>): Promise<void>
 ```
 
 Compose and run the middleware stack.
