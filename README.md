@@ -59,33 +59,19 @@ app.use(async (ctx, next) => {
 app.compose(): (ctx: C, next?: () => Promise<void>) => Promise<void>
 ```
 
-Composes the middleware stack into a callable function.
+Composes the middleware stack into a single middleware function.
+
+Also see [@art-of-coding/lime-compose](https://github.com/Art-of-Coding/lime-compose)
+for the stand-alone `compose` function.
 
 ```ts
-import { compose } from '@art-of-coding/lime'
+const composed = app.compose()
+const ctx = { /* ... */ }
 
-const composed = compose(
-  async (ctx, next) => {
-    // 1st middleware
-    await next()
-  },
-  async (ctx, next) => {
-    // 2nd middleware
-    return next()
-  },
-  async () => {
-    // 3rd middleware, execution stops here
-  },
-  async () => {
-    // 4th middleware, is never called
-  }
-)
-
-const ctx = {}
 composed(ctx).then(() => {
-  // middleware completed
+  // middleware ran
 }).catch(err => {
-  // middleware errored
+  // middleware error
 })
 ```
 
