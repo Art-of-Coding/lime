@@ -22,5 +22,8 @@
   "devDependencies": {
     "@types/node": "^12.6.2",
     "typescript": "^3.5.3"
+  },
+  "dependencies": {
+    "@art-of-coding/lime-compose": "0.0.1"
   }
 }

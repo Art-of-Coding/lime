@@ -1,14 +1,6 @@
 'use strict'
 
-import compose from './compose'
-
-export interface Context {
-  [x: string]: any
-}
-
-export interface MiddlewareFunction<C = Context> {
-  (ctx: C, next?: () => Promise<void>): Promise<void>
-}
+import compose, { Context, MiddlewareFunction } from '@art-of-coding/lime-compose'
 
 export class Lime<C = Context> {
   private _stack: MiddlewareFunction<C>[] = []
