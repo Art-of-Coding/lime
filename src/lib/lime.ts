@@ -14,13 +14,9 @@ export class Lime<C = Context> {
   private _composed: (ctx: Context) => Promise<void>
   private _mw: MiddlewareFunction<C>[] = []
 
-  public use (fns: MiddlewareFunction<C> | MiddlewareFunction<C>[]) {
-    if (Array.isArray(fns)) {
-      for (let fn of fns) {
-        this._mw.push(fn)
-      }
-    } else {
-      this._mw.push(fns)
+  public use (...middlewares: MiddlewareFunction<C>[]) {
+    for (let middleware of middlewares) {
+      this._mw.push(middleware)
     }
 
     this._composed = null
