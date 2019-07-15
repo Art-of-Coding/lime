@@ -2,7 +2,7 @@
 
 import { MiddlewareFunction, Context } from './lime'
 
-export function compose (stack: MiddlewareFunction<any>[]) {
+export function compose (...stack: MiddlewareFunction<any>[]) {
   return (ctx: Context, next?: () => Promise<void>) => {
     let index = -1
 

@@ -28,7 +28,7 @@ export class Lime<C = Context> {
 
   public compose () {
     if (!this._composed) {
-      this._composed = compose(this._mw)
+      this._composed = compose(...this._mw)
     }
 
     return this._composed
