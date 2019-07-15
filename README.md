@@ -11,12 +11,17 @@ npm i @art-of-coding/lime
 
 ## API
 
-#### app = new Lime<C = Context>(...middlewares: MiddlewareFunction[]): Lime
-
-Create a new Lime app instance.
+#### new Lime
 
 ```ts
-// with default context ({ [x: string]: string | number })
+new Lime<C = Context>(): Lime<C>
+```
+
+Create a new Lime app instance. The `C` key refers to the context definition to use,
+which defaults to `Context ({ [x: string]: any })`.
+
+```ts
+// with default context ({ [x: string]: any })
 const app = new Lime()
 
 // Create custom context interface
@@ -25,23 +30,70 @@ interface MyContext extends Context {
 }
 
 const app = new Lime<MyContext>()
+// now the context will have a property definition <number>age
 ```
 
-#### app.use(...middlewares: MiddlewareFunction[]): void
+#### app.use()
+
+```ts
+app.use(...middlewares: MiddlewareFunction[]): this
+```
 
 Add one or more middleware functions to the stack.
 
+A `MiddlewareFunction` is an async function that takes the `context (ctx)` for the
+call as the first argument, and the `next()` function as the second. Calling `next()`
+resumes calling of the middleware stack.
+
 ```ts
 app.use(async (ctx, next) => {
-  // middleware content here
+  console.log('before next()')
+  await next()
+  console.log('after next()')
 })
 ```
 
-#### app.compose(): (ctx: C) => Promise<void>
+#### app.compose()
+
+```ts
+app.compose(): (ctx: C, next?: () => Promise<void>) => Promise<void>
+```
 
 Composes the middleware stack into a callable function.
 
-#### app.run (ctx: C): Promise<void>
+```ts
+import { compose } from '@art-of-coding/lime'
+
+const composed = compose(
+  async (ctx, next) => {
+    // 1st middleware
+    await next()
+  },
+  async (ctx, next) => {
+    // 2nd middleware
+    return next()
+  },
+  async () => {
+    // 3rd middleware, execution stops here
+  },
+  async () => {
+    // 4th middleware, is never called
+  }
+)
+
+const ctx = {}
+composed(ctx).then(() => {
+  // middleware completed
+}).catch(err => {
+  // middleware errored
+})
+```
+
+#### app.run()
+
+```ts
+app.run(ctx: C): Promise<void>
+```
 
 Compose and run the middleware stack.
 
@@ -51,7 +103,11 @@ Shorthand for
 const ctx = { /* ... */ }
 const composed = app.compose()
 
-await composed(ctx)
+composed(ctx).then(() => {
+  // middleware completed
+}).catch(err => {
+  // middleware errored
+})
 ```
 
 ## Example
@@ -83,7 +139,7 @@ const ctx = {}
 // Run the middlewares for the context
 app.run(ctx).then(() => {
   /*
-  `ctx` will now look something like this:
+  `ctx` will now look like this:
   
   {
     no: 1,
@@ -98,6 +154,6 @@ app.run(ctx).then(() => {
 
 ### License
 
-Copyright 2016 [Michiel van der Velde](http://www.michielvdvelde.nl).
+Copyright 2019 [Michiel van der Velde](http://www.michielvdvelde.nl).
 
 This software is licensed under the [MIT License](LICENSE).
