@@ -12,7 +12,7 @@ export interface MiddlewareFunction<C = Context> {
 
 export class Lime<C = Context> {
   private _stack: MiddlewareFunction<C>[] = []
-  private _composed: (ctx: Context) => Promise<void>
+  private _composed: (ctx: C, next?: () => Promise<void>) => Promise<void>
 
   public use (...middlewares: MiddlewareFunction<C>[]) {
     if (!middlewares.length) {
@@ -36,8 +36,8 @@ export class Lime<C = Context> {
     return this._composed
   }
 
-  public async run (ctx: C) {
-    return this.compose()(ctx)
+  public async run (ctx: C, next?: () => Promise<void>) {
+    return this.compose()(ctx, next)
   }
 }
 
