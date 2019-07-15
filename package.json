@@ -1,6 +1,6 @@
 {
   "name": "@art-of-coding/lime",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A small middleware package that uses async/await",
   "main": "./dist/index.js",
   "author": "Michiel van der Velde <michiel@michielvdvelde.nl>",
@@ -9,6 +9,9 @@
     "type": "git",
     "url": "https://github.com/Art-of-Coding/lime"
   },
+  "files": [
+    "dist"
+  ],
   "keywords": [
     "middleware",
     "async",
