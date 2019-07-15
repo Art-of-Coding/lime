@@ -11,20 +11,26 @@ export interface MiddlewareFunction<C = Context> {
 }
 
 export class Lime<C = Context> {
+  private _stack: MiddlewareFunction<C>[] = []
   private _composed: (ctx: Context) => Promise<void>
-  private _mw: MiddlewareFunction<C>[] = []
 
   public use (...middlewares: MiddlewareFunction<C>[]) {
+    if (!middlewares.length) {
+      throw new TypeError('use() expects at least one argument')
+    }
+
     for (let middleware of middlewares) {
-      this._mw.push(middleware)
+      this._stack.push(middleware)
     }
 
     this._composed = null
+
+    return this
   }
 
   public compose () {
     if (!this._composed) {
-      this._composed = compose(...this._mw)
+      this._composed = compose(...this._stack)
     }
 
     return this._composed
