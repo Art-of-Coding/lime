@@ -2,8 +2,8 @@
 
 import { MiddlewareFunction, Context } from './lime'
 
-export function compose (...stack: MiddlewareFunction[]) {
-  return (ctx: Context, next?: () => Promise<void>) => {
+export function compose<C = Context> (...stack: MiddlewareFunction<C>[]) {
+  return (ctx: C, next?: () => Promise<void>) => {
     let index = -1
 
     const dispatch = async (i: number) => {
