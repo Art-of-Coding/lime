@@ -20,6 +20,10 @@ export class Lime<C = Context> {
     }
 
     for (let middleware of middlewares) {
+      if (typeof middleware !== 'function') {
+        throw new TypeError('use() expects arguments to be functions')
+      }
+
       this._stack.push(middleware)
     }
 
