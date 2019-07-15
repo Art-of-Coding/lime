@@ -11,7 +11,48 @@ npm i @art-of-coding/lime
 
 ## API
 
-*TBD*
+#### app = new Lime<C = Context>(...middlewares: MiddlewareFunction[]): Lime
+
+Create a new Lime app instance.
+
+```ts
+// with default context ({ [x: string]: string | number })
+const app = new Lime()
+
+// Create custom context interface
+interface MyContext extends Context {
+  age: number
+}
+
+const app = new Lime<MyContext>()
+```
+
+#### app.use(...middlewares: MiddlewareFunction[]): void
+
+Add one or more middleware functions to the stack.
+
+```ts
+app.use(async (ctx, next) => {
+  // middleware content here
+})
+```
+
+#### app.compose(): (ctx: C) => Promise<void>
+
+Composes the middleware stack into a callable function.
+
+#### app.run (ctx: C): Promise<void>
+
+Compose and run the middleware stack.
+
+Shorthand for
+
+```ts
+const ctx = { /* ... */ }
+const composed = app.compose()
+
+await composed(ctx)
+```
 
 ## Example
 
