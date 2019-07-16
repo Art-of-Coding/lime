@@ -1,10 +1,10 @@
 'use strict'
 
-import compose, { Context, MiddlewareFunction } from '@art-of-coding/lime-compose'
+import compose, { Context, MiddlewareFunction, NextFunction } from '@art-of-coding/lime-compose'
 
 export class Lime<C = Context> {
   private _stack: MiddlewareFunction<C>[] = []
-  private _composed: (ctx: C, next?: () => Promise<void>) => Promise<void>
+  private _composed: (ctx: C, next?: NextFunction) => Promise<void>
 
   public use (...middlewares: MiddlewareFunction<C>[]) {
     if (!middlewares.length) {
@@ -32,7 +32,7 @@ export class Lime<C = Context> {
     return this._composed
   }
 
-  public async run (ctx: C, next?: () => Promise<void>) {
+  public async run (ctx: C, next?: NextFunction) {
     return this.compose()(ctx, next)
   }
 }
