@@ -86,8 +86,6 @@ app.run(ctx: C, next?: () => Promise<void>): Promise<void>
 
 Compose and run the middleware stack.
 
-Shorthand for
-
 ```ts
 const ctx = {}
 
