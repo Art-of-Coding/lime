@@ -4,7 +4,7 @@ import compose, { Context, MiddlewareFunction, NextFunction } from '@art-of-codi
 
 export class Lime<C = Context> {
   private _stack: MiddlewareFunction<C>[] = []
-  private _composed: (ctx: C, next?: NextFunction) => Promise<void>
+  private _composed: MiddlewareFunction<C>
 
   public use (...middlewares: MiddlewareFunction<C>[]) {
     if (!middlewares.length) {
