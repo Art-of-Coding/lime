@@ -11,10 +11,10 @@ npm i @art-of-coding/lime
 
 ## API
 
-#### new Lime
+#### new Lime()
 
 ```ts
-new Lime<C = Context>(): Lime<C>
+const app = new Lime<C = Context>(): Lime<C>
 ```
 
 Create a new Lime app instance. The `C` key refers to the context definition to use,
@@ -59,7 +59,7 @@ app.use(async (ctx, next) => {
 #### app.compose()
 
 ```ts
-app.compose(): (ctx: C, next?: () => Promise<void>) => Promise<void>
+app.compose(): (ctx: C, next?: NextFunction) => Promise<void>
 ```
 
 Composes the middleware stack into a single middleware function.
@@ -81,7 +81,7 @@ composed(ctx).then(() => {
 #### app.run()
 
 ```ts
-app.run(ctx: C, next?: () => Promise<void>): Promise<void>
+app.run(ctx: C, next?: NextFunction): Promise<void>
 ```
 
 Compose and run the middleware stack.
