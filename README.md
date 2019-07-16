@@ -21,10 +21,13 @@ Create a new Lime app instance. The `C` key refers to the context definition to 
 which defaults to `Context ({ [x: string]: any })`.
 
 ```ts
+import Lime, { Context } from '@art-of-coding/lime'
+
 // with default context ({ [x: string]: any })
 const app = new Lime()
 
 // Create custom context interface
+// Extending Context is not strictly necessary
 interface MyContext extends Context {
   age: number
 }
@@ -65,11 +68,11 @@ Also see [@art-of-coding/lime-compose](https://github.com/Art-of-Coding/lime-com
 for the stand-alone `compose` function.
 
 ```ts
-const composed = app.compose()
 const ctx = { /* ... */ }
+const composed = app.compose()
 
 composed(ctx).then(() => {
-  // middleware ran
+  // middleware completed
 }).catch(err => {
   // middleware error
 })
@@ -86,13 +89,12 @@ Compose and run the middleware stack.
 Shorthand for
 
 ```ts
-const ctx = { /* ... */ }
-const composed = app.compose()
+const ctx = {}
 
-composed(ctx).then(() => {
+app.run(ctx).then(() => {
   // middleware completed
 }).catch(err => {
-  // middleware errored
+  // middleware error
 })
 ```
 
