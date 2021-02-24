@@ -140,6 +140,6 @@ app.run(ctx).then(() => {
 
 ### License
 
-Copyright 2019 [Michiel van der Velde](http://www.michielvdvelde.nl).
+Copyright 2019-2021 [Michiel van der Velde](http://www.michielvdvelde.nl).
 
 This software is licensed under the [MIT License](LICENSE).
