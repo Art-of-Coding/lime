@@ -14,21 +14,21 @@ npm i @art-of-coding/lime
 #### new Lime()
 
 ```ts
-const app = new Lime<C = Context>(): Lime<C>
+import Lime from '@art-of-coding/lime'
+
+const app = new Lime<TContext>(): Application<TContext>
 ```
 
-Create a new Lime app instance. The `C` key refers to the context definition to use,
-which defaults to `Context ({ [x: string]: any })`.
+Create a new Lime app instance. The `TContext` key refers to the context definition to use.
 
 ```ts
-import Lime, { Context } from '@art-of-coding/lime'
+import Lime from '@art-of-coding/lime'
 
 // with default context ({ [x: string]: any })
 const app = new Lime()
 
 // Create custom context interface
-// Extending Context is not strictly necessary
-interface MyContext extends Context {
+interface MyContext {
   age: number
 }
 
@@ -39,12 +39,12 @@ const app = new Lime<MyContext>()
 #### app.use()
 
 ```ts
-app.use(...middlewares: MiddlewareFunction[]): this
+app.use(...middlewares: Middleware<TContext>[]): this
 ```
 
 Add one or more middleware functions to the stack.
 
-A `MiddlewareFunction` is an async function that takes the `context (ctx)` for the
+A `Middleware` is an async function that takes the `context (ctx)` for the
 call as the first argument, and the `next()` function as the second. Calling `next()`
 resumes calling of the middleware stack.
 
@@ -59,12 +59,12 @@ app.use(async (ctx, next) => {
 #### app.compose()
 
 ```ts
-app.compose(): (ctx: C, next?: NextFunction) => Promise<void>
+app.compose(): (ctx: TContext, next?: NextFunction) => Promise<void>
 ```
 
 Composes the middleware stack into a single middleware function.
 
-Also see [@art-of-coding/lime-compose](https://github.com/Art-of-Coding/lime-compose)
+Also see [@art-of-coding/compose](https://github.com/Art-of-Coding/compose)
 for the stand-alone `compose` function.
 
 ```ts
@@ -81,7 +81,7 @@ composed(ctx).then(() => {
 #### app.run()
 
 ```ts
-app.run(ctx: C, next?: NextFunction): Promise<void>
+app.run(ctx: C, next?: () => Promise<void>): Promise<void>
 ```
 
 Compose and run the middleware stack.
