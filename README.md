@@ -24,9 +24,6 @@ Create a new Lime app instance. The `TContext` key refers to the context definit
 ```ts
 import Lime from '@art-of-coding/lime'
 
-// with default context ({ [x: string]: any })
-const app = new Lime()
-
 // Create custom context interface
 interface MyContext {
   age: number
