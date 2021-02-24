@@ -1,9 +1,9 @@
 'use strict'
 
-import { Lime, Context } from '../'
+import Lime from '../'
 import { createServer, IncomingMessage, ServerResponse } from 'http'
 
-interface HttpContext extends Context {
+interface HttpContext {
   req: IncomingMessage,
   res: ServerResponse,
   status?: number,
