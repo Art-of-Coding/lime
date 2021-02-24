@@ -1,6 +1,6 @@
 {
   "name": "@art-of-coding/lime",
-  "version": "0.3.2",
+  "version": "1.0.0",
   "description": "A small middleware package that uses async/await",
   "main": "./dist/index.js",
   "author": "Michiel van der Velde <michiel@michielvdvelde.nl>",
@@ -13,7 +13,7 @@
     "dist"
   ],
   "engines": {
-    "node": ">=7.6.0"
+    "node": ">=10"
   },
   "keywords": [
     "middleware",
@@ -22,11 +22,7 @@
     "compose"
   ],
   "license": "MIT",
-  "devDependencies": {
-    "@types/node": "^12.6.2",
-    "typescript": "^3.5.3"
-  },
   "dependencies": {
-    "@art-of-coding/lime-compose": "0.0.4"
+    "@art-of-coding/compose": "^1.0.0"
   }
 }
